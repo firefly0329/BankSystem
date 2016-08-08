@@ -4,7 +4,7 @@ header("Content-Type:text/html; charset=utf-8");
 class Detail_Controller extends Controller
 {
     
-    function detail($msg = "") 
+    public function detail($msg = "") 
     {
         $memberModel = $this->model("Member_Model");
         $detailModel = $this->model("Detail_Model");
@@ -13,13 +13,13 @@ class Detail_Controller extends Controller
         // var_dump($result);
         $this->view("detail", array($detail, $total, $msg));
     }
-    function memberLogin()
+    public function memberLogin()
     {
         $memberModel = $this->model("Member_Model");
         $memberModel->setSESSION($_POST['account']);
         header("location:/BankSystem/Detail_Controller/detail");
     }
-    function changeMoney()
+    public function changeMoney()
     {
         $memberModel = $this->model("Member_Model");
         $detailModel = $this->model("Detail_Model");

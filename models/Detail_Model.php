@@ -3,7 +3,7 @@ session_start();
 header("Content-Type:text/html; charset=utf-8");
 class Detail_Model
 {
-    function getDetail()
+    public function getDetail()
     {
         $pdo = new dbPDO;
         
@@ -15,7 +15,7 @@ class Detail_Model
         return $result;
     }
     
-    function setDetail($change, $money)
+    public function setDetail($change, $money)
     {
         $pdo = new dbPDO;
         

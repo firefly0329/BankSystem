@@ -3,16 +3,16 @@ session_start();
 header("Content-Type:text/html; charset=utf-8");
 class Member_Model{
     
-    function setSESSION($account)
+    public function setSESSION($account)
     {
         $_SESSION['account'] = $account;
     }
-    function unsetSESSION($account)
+    public function unsetSESSION($account)
     {
         unset($_SESSION['account']);
     }
     
-    function getTotal()
+    public function getTotal()
     {
         $pdo = new dbPDO;
         
@@ -25,12 +25,12 @@ class Member_Model{
         return $result;
     }
     
-    function setTotal($change, $money)
+    public function setTotal($change, $money)
     {
         $pdo = new dbPDO;
         try{
-            $pdo->linkConnection()->beginTransaction();
-        
+            $pdoLink = $pdo->linkConnection();
+            $pdoLink->beginTransaction();
             $account = $_SESSION['account'];
             $grammer = "SELECT * FROM  `member` WHERE `account` = :account FOR UPDATE";
             $paramArray = array(':account' => $account);
@@ -43,15 +43,14 @@ class Member_Model{
                 $grammer = "UPDATE `member` SET `total` = :total WHERE `account` = :account";
                 $paramArray = array(':total' => $total,
                                     ':account' => $account);
-                // var_dump($paramArray);
                 $result = $pdo->change($grammer, $paramArray);
                 if ($result > 0) {
                     $msg = "修改成功";
                 } else {
-                    throw new Exception("修改成功");
+                    throw new Exception("修改失敗");
                 }
             }
-            $pdo->linkConnection()->commit();
+            $pdoLink->commit();
         }catch(Exception $err){
             $pdo->linkConnection()->rollback();
             $msg = $err->getMessage();

@@ -2,25 +2,28 @@
 
 class dbPDO{
     private static $connection = null;
-    function __construct(){
+    public function __construct()
+    {
         $db = new PDO("mysql:host=localhost;dbname=BankSystem;port=3306", "firefly0329", "");
         $db->exec("SET CHARACTER SET utf8");
         self::$connection = $db;
         $db = null;
     }
-    function __destruct(){
+    public function __destruct()
+    {
         self::$connection = null;
     }
-    function lastInsertId(){
-        return self::$connection->lastInsertId();
-    }
-    function linkConnection(){
-        return self::$connection;
-    }
+    // function lastInsertId(){
+    //     return self::$connection->lastInsertId();
+    // }
+    // function linkConnection(){
+    //     return self::$connection;
+    // }
     // function closeConnection(){
     //     self::$connection = null;
     // }
-    function selectAll($grammer,$paramArray){
+    public function selectAll($grammer,$paramArray)
+    {
         $pdoLink = self::$connection;
         
         $prepare = $pdoLink->prepare($grammer);
@@ -29,7 +32,9 @@ class dbPDO{
 
         return $result;
     }
-    function selectOnce($grammer,$paramArray){
+    
+    public function selectOnce($grammer,$paramArray)
+    {
         $pdoLink = self::$connection;
         
         $prepare = $pdoLink->prepare($grammer);
@@ -39,7 +44,8 @@ class dbPDO{
         return $result;
     }
     
-    function change($grammer,$paramArray){
+    public function change($grammer,$paramArray)
+    {
         $pdoLink = self::$connection;
         
         $prepare = $pdoLink->prepare($grammer);

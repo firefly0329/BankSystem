@@ -2,7 +2,8 @@
 
 class App {
     
-    public function __construct() {
+    public function __construct() 
+    {
         $url = $this->parseUrl();
         
         if(is_null($url)){
@@ -21,7 +22,8 @@ class App {
         call_user_func_array(Array($controller, $methodName), $params);
     }
     
-    public function parseUrl() {
+    public function parseUrl() 
+    {
         if (isset($_GET["url"])) {
             $url = rtrim($_GET["url"], "/");//把最右邊的/刪掉
             $url = explode("/", $url);//把字串依指定的符號拆解成陣列

@@ -55,7 +55,7 @@ session_start();
                     </div>
                     <div class="w-100">
                         <label for="">金額</label>
-                        <input type="text" name="money"/>
+                        <input type="text" name="money" value="1000"/>
                     </div>
                     <div class="w-100">
                         <!--<input type="hidden" id="Aid" name="Aid" value="">-->
