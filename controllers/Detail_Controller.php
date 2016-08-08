@@ -1,18 +1,24 @@
 <?php 
+// session_start();
 header("Content-Type:text/html; charset=utf-8");
 class Detail_Controller extends Controller
 {
+    
     function detail() 
     {
         $memberModel = $this->model("Member");
-        $memberModel->detail();
-        $this->view("detail");
+        $detailModel = $this->model("Detail");
+        $detail = $detailModel->getDetail();
+        $total = $memberModel->getTotal();
+        // var_dump($result);
+        $this->view("detail", array($detail,$total));
     }
-    function memberLogin(){
+    function memberLogin()
+    {
         $memberModel = $this->model("Member");
-        if(isset($_POST['memberBTM'])){
+        if (isset($_POST['memberBTM'])) {
             $memberModel->setSESSION($_POST['account']);
-            $this->detail();
+            header("location:/BankSystem/Detail_Controller/detail");
         }
     }
     

@@ -1,22 +1,27 @@
 <?php 
 session_start();
+header("Content-Type:text/html; charset=utf-8");
 class Member{
     
     function setSESSION($account)
     {
         $_SESSION['account'] = $account;
     }
-    function detail()
+    function unsetSESSION($account)
     {
-        if(isset($_SESSION['account'])){
-            $pdo = new dbPDO;
-
-            $grammer = "SELECT * FROM  `member` WHERE `account` = :account";
-            $paramArray = array(':account' => $_SESSION['account']);
-            $result = $pdo->selectAll($grammer,$paramArray);
+        unset($_SESSION['account']);
+    }
+    
+    function getTotal(){
+        $pdo = new dbPDO;
         
-            return $result;
-        } 
+        $account = $_SESSION['account'];
+        $grammer = "SELECT `total` FROM  `member` WHERE `account` = :account";
+        $paramArray = array(':account' => $account);
+        $result = $pdo->selectOnce($grammer,$paramArray);
+        
+        // var_dump($result);
+        return $result;
     }
 }
 

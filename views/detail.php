@@ -1,5 +1,6 @@
 <?php
-
+header("Content-Type:text/html; charset=utf-8");
+// var_dump($data);
 ?>
 
 <html>
@@ -30,21 +31,21 @@
                         <th>收支</th>
                         <th>金額</th>
                     </tr>
-                    <!--<?php foreach($data[1] as $row){ ?>-->
-                    <!--<tr>-->
-                    <!--    <td><?php echo $row['Snumber']; ?></td>-->
-                    <!--    <td><?php echo $row['Sname']; ?></td>-->
-                    <!--    <td><?php echo $row['sign']; ?></td>-->
-                    <!--    <td><?php echo $row['together']; ?></td>-->
-                    <!--</tr>-->
-                    <!--<?php } ?>-->
+                    <?php foreach($data[0] as $row){ ?>
+                    <tr>
+                        
+                        <td><?php echo $row['change']; ?></td>
+                        
+                        <td><?php echo $row['money']; ?></td>
+                    </tr>
+                    <?php } ?>
                     
                 </table>
-                <h3 class="ta-c pd-t-1">餘額</h3>
+                <h3 class="ta-c pd-t-1">餘額:<?php echo $data[1]['total']; ?></h3>
             </div>
             
             <div class="pd-t-3">
-                <form action="/Activity/back_con/newPeople" method="post" class="">
+                <form action="/BankSystem/Detail_Controller/memberLogin" method="post" class="">
                     <div class="w-100">
                         <label for="">收支</label>
                         <input type="text" name="Snumber" pattern="[0-9]{3,20}"/>
