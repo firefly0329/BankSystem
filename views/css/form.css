@@ -1,0 +1,42 @@
+form{
+    width: 48%;
+    margin: 0 auto;
+    text-align: center;
+}
+form div{
+    
+}
+form label{
+    display:block;
+    float: left;
+    width: 15%;
+    text-align: right;
+    
+}
+form input[type="text"], form input[type="datetime-local"], form input[type="number"]{
+    float: left;
+    text-align: left;
+    height: 1.5em;
+    width: 76%;
+    font-size: 1.1em;
+}
+
+form select{
+    float: left;
+    text-align: left;
+    height: 1.5em;
+    width: 76%;
+    font-size: 1.1em;
+}
+form textarea {
+    float: left;
+    width: 76%;
+    height: 10em;
+    font-size: 1.1em;
+    resize: none;  /*使訊息欄無法自由拖曳大小
+}
+
+form input[type="submit"] {
+    width: 20%;
+    margin: 0 auto;
+}

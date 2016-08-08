@@ -1,0 +1,19 @@
+table{
+  background: #34495E;
+  color: #fff;
+  width: 60%;
+  text-align: center;
+  border: 1px solid yellow;
+  border-radius: 8px;
+}
+tr{
+    height: 30px;
+}
+th{
+    color: yellow;
+}
+
+
+td{
+    /*border: 1px solid yellow;*/
+}
