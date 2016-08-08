@@ -1,6 +1,6 @@
 <?php
 header("Content-Type:text/html; charset=utf-8");
-// var_dump($data);
+session_start();
 ?>
 
 <html>
@@ -19,7 +19,7 @@ header("Content-Type:text/html; charset=utf-8");
                 <form action="/BankSystem/Detail_Controller/memberLogin" method="post" class="">
                     <div class="w-100">
                         <label for="">會員編號</label>
-                        <input type="text" name="account" pattern="[0-9]{3,20}"/>
+                        <input type="text" name="account" pattern="[0-9]{3,20}" value="<?php echo $_SESSION['account']; ?>"/>
                         <input type="submit" value="送出" name="memberBTM"/>
                     </div>
                 </form>
@@ -45,14 +45,17 @@ header("Content-Type:text/html; charset=utf-8");
             </div>
             
             <div class="pd-t-3">
-                <form action="/BankSystem/Detail_Controller/memberLogin" method="post" class="">
+                <form action="/BankSystem/Detail_Controller/changeMoney" method="post" class="">
                     <div class="w-100">
                         <label for="">收支</label>
-                        <input type="text" name="Snumber" pattern="[0-9]{3,20}"/>
+                        <select name="change" id="">
+                            <option value="收入">收入</option>
+                            <option value="支出">支出</option>
+                        </select>
                     </div>
                     <div class="w-100">
                         <label for="">金額</label>
-                        <input type="text" name="Sname"/>
+                        <input type="text" name="money"/>
                     </div>
                     <div class="w-100">
                         <!--<input type="hidden" id="Aid" name="Aid" value="">-->
@@ -61,6 +64,8 @@ header("Content-Type:text/html; charset=utf-8");
                     
                 </form>
             </div>
+            <h3 class="pd-t-3 pd-b-3 ta-c" style="color: red;"><?php echo $data[2]; ?></h3>
+            
             
         </div>
         <script type="text/javascript" src="/Activity/views/js/jquery-1.11.3.min.js"></script>

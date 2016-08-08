@@ -1,25 +1,38 @@
 <?php 
-// session_start();
+session_start();
 header("Content-Type:text/html; charset=utf-8");
 class Detail_Controller extends Controller
 {
     
-    function detail() 
+    function detail($msg = "") 
     {
-        $memberModel = $this->model("Member");
-        $detailModel = $this->model("Detail");
+        $memberModel = $this->model("Member_Model");
+        $detailModel = $this->model("Detail_Model");
         $detail = $detailModel->getDetail();
         $total = $memberModel->getTotal();
         // var_dump($result);
-        $this->view("detail", array($detail,$total));
+        $this->view("detail", array($detail, $total, $msg));
     }
     function memberLogin()
     {
-        $memberModel = $this->model("Member");
-        if (isset($_POST['memberBTM'])) {
-            $memberModel->setSESSION($_POST['account']);
-            header("location:/BankSystem/Detail_Controller/detail");
+        $memberModel = $this->model("Member_Model");
+        $memberModel->setSESSION($_POST['account']);
+        header("location:/BankSystem/Detail_Controller/detail");
+    }
+    function changeMoney()
+    {
+        $memberModel = $this->model("Member_Model");
+        $detailModel = $this->model("Detail_Model");
+        
+        $msg = $memberModel->setTotal($_POST['change'], $_POST['money']);
+        // echo $msg;
+        if ($msg == "修改成功") {
+            // echo $msg;
+            $detailModel->setDetail($_POST['change'], $_POST['money']);
+            $this->detail($msg);
+            // header("location:/BankSystem/Detail_Controller/detail/");
         }
+        
     }
     
 }
