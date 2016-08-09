@@ -1,4 +1,5 @@
-<?php 
+<?php
+
 class dbPDO
 {
     private static $connection = null;
@@ -15,22 +16,16 @@ class dbPDO
     {
         self::$connection = null;
     }
-    // function lastInsertId(){
-    //     return self::$connection->lastInsertId();
-    // }
 
-    function linkConnection(){
+    function linkConnection()
+    {
         return self::$connection;
     }
-    
-    // function closeConnection(){
-    //     self::$connection = null;
-    // }
 
     public function selectAll($grammer, $paramArray)
     {
         $pdoLink = self::$connection;
-        
+
         $prepare = $pdoLink->prepare($grammer);
         $prepare->execute($paramArray);
         $result = $prepare->fetchAll(PDO::FETCH_ASSOC);

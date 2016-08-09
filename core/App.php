@@ -1,4 +1,5 @@
 <?php
+
 class App {
     public function __construct()
     {
@@ -13,10 +14,9 @@ class App {
         $controller = new $controllerName;
         $methodName = $url[1];
         unset($url[0]); unset($url[1]);
-         
-        $params = $url ? array_values($url) : Array();
-        //call_user_func_array(Array(class名稱,function名稱), Array(參數1,參數2));
-        call_user_func_array(Array($controller, $methodName), $params);
+
+        $params = $url ? array_values($url) : array();
+        call_user_func_array(array($controller, $methodName), $params);
     }
 
     public function parseUrl()
@@ -27,6 +27,5 @@ class App {
             return $url;
         }
     }
-    
 }
 

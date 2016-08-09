@@ -1,7 +1,6 @@
-<?php 
-session_start();
+<?php
 
-class Member_Model
+class MemberModel
 {
     public function setSESSION($account)
     {
@@ -22,7 +21,6 @@ class Member_Model
         $paramArray = array(':account' => $account);
         $result = $pdo->selectOnce($grammer, $paramArray);
 
-        // var_dump($result);
         return $result;
     }
 
@@ -36,7 +34,6 @@ class Member_Model
             $grammer = "SELECT * FROM  `member` WHERE `account` = :account FOR UPDATE";
             $paramArray = array(':account' => $account);
             $member = $pdo->selectOnce($grammer, $paramArray);
-            // sleep(5);
             if ($change == "支出" && $money > $member['total']) {
                 throw new Exception("您的餘額不足");
             } else {

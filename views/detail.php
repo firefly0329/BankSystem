@@ -40,7 +40,7 @@
                 </table>
                 <h3 class="ta-c pd-t-1">餘額:<?php echo $data[1]['total']; ?></h3>
             </div>
-            
+
             <div class="pd-t-3">
                 <form action="/BankSystem/Detail_Controller/changeMoney" method="post" class="">
                     <div class="w-100">
@@ -62,8 +62,8 @@
                 </form>
             </div>
             <h3 class="pd-t-3 pd-b-3 ta-c" style="color: red;"><?php echo $data[2]; ?></h3>
-            
-            
+
+
         </div>
         <script type="text/javascript" src="/Activity/views/js/jquery-1.11.3.min.js"></script>
     </body>

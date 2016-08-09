@@ -1,7 +1,7 @@
-<?php 
+<?php
 session_start();
 
-class Detail_Model
+class DetailModel
 {
     public function getDetail()
     {
@@ -21,9 +21,11 @@ class Detail_Model
 
         $account = $_SESSION['account'];
         $grammer = "INSERT INTO `detail`(`change`, `money`, `account`) VALUES (:change, :money, :account)";
-        $paramArray = array(':change' => $change,
-                            ':money' => $money,
-                            ':account' => $account);
+        $paramArray = array(
+            ':change' => $change,
+            ':money' => $money,
+            ':account' => $account
+        );
         $result = $pdo->change($grammer, $paramArray);
 
         return $result;
