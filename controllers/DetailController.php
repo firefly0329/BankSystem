@@ -22,8 +22,11 @@ class DetailController extends Controller
     {
         $memberModel = $this->model("MemberModel");
         $detailModel = $this->model("DetailModel");
-
-        $msg = $memberModel->setTotal($_POST['change'], $_POST['money'], $_SESSION['account']);
+        if ($_POST['money'] > 0) {
+            $msg = $memberModel->setTotal($_POST['change'], $_POST['money'], $_SESSION['account']);
+        } else {
+            $msg = "輸入金額必須大於0";
+        }
         if ($msg == "修改成功") {
             $detailModel->setDetail($_POST['change'], $_POST['money'], $_SESSION['account']);
         }

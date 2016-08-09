@@ -4,7 +4,7 @@ class MemberModel
 {
     public function getTotal($account)
    {
-        $pdo = new dbPDO;
+        $pdo = new DatabasePDO;
 
         $grammer = "SELECT `total` FROM  `member` WHERE `account` = :account";
         $paramArray = array(':account' => $account);
@@ -15,11 +15,11 @@ class MemberModel
 
     public function setTotal($change, $money, $account)
     {
-        $pdo = new dbPDO;
+        $pdo = new DatabasePDO;
         try{
             $pdoLink = $pdo->linkConnection();
             $pdoLink->beginTransaction();
-            $grammer = "SELECT * FROM  `member` WHERE `account` = :account FOR UPDATE";
+            $grammer = "SELECT * FROM  `member` WHERE `account` = :account FOR UPDATE";//LOCK IN SHARE MODE SELECT
             $paramArray = array(':account' => $account);
             $member = $pdo->selectOnce($grammer, $paramArray);
             if ($change == "支出" && $money > $member['total']) {
@@ -27,8 +27,10 @@ class MemberModel
             } else {
                 $change == "收入" ? $total = $member['total'] + $money : $total = $member['total'] - $money;
                 $grammer = "UPDATE `member` SET `total` = :total WHERE `account` = :account";
-                $paramArray = array(':total' => $total,
-                                    ':account' => $account);
+                $paramArray = array(
+                    ':total' => $total,
+                    ':account' => $account
+                );
                 $result = $pdo->change($grammer, $paramArray);
                 if ($result > 0) {
                     $msg = "修改成功";

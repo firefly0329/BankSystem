@@ -1,6 +1,6 @@
 <?php
 
-class dbPDO
+class DatabasePDO
 {
     private static $connection = null;
 
@@ -36,7 +36,7 @@ class dbPDO
     public function selectOnce($grammer, $paramArray)
     {
         $pdoLink = self::$connection;
-        
+
         $prepare = $pdoLink->prepare($grammer);
         $prepare->execute($paramArray);
         $result = $prepare->fetch(PDO::FETCH_ASSOC);
@@ -62,7 +62,7 @@ function getOnceActivity($Aid){
         $grammer = "SELECT * FROM  `activity` WHERE `Aid` = :Aid";
         $paramArray = array(':Aid' => $Aid);
         $result = $pdo->selectOnce($grammer, $paramArray);
-        
+
         return $result;
     }
 

@@ -4,7 +4,7 @@ class DetailModel
 {
     public function getDetail($account)
     {
-        $pdo = new dbPDO;
+        $pdo = new DatabasePDO;
 
         $grammer = "SELECT * FROM  `detail` WHERE `account` = :account";
         $paramArray = array(':account' => $account);
@@ -15,7 +15,7 @@ class DetailModel
 
     public function setDetail($change, $money, $account)
     {
-        $pdo = new dbPDO;
+        $pdo = new DatabasePDO;
 
         $grammer = "INSERT INTO `detail`(`change`, `money`, `account`) VALUES (:change, :money, :account)";
         $paramArray = array(

@@ -22,8 +22,8 @@ class App {
     public function parseUrl()
     {
         if (isset($_GET["url"])) {
-            $url = rtrim($_GET["url"], "/");//把最右邊的/刪掉
-            $url = explode("/", $url);//把字串依指定的符號拆解成陣列
+            $url = rtrim($_GET["url"], "/");
+            $url = explode("/", $url);
             return $url;
         }
     }
