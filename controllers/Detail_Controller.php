@@ -1,7 +1,7 @@
 <?php 
 class Detail_Controller extends Controller
 {
-    public function detail($msg = "") 
+    public function detail($msg = "")
     {
         $memberModel = $this->model("Member_Model");
         $detailModel = $this->model("Detail_Model");

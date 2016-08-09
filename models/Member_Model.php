@@ -16,12 +16,12 @@ class Member_Model
     public function getTotal()
     {
         $pdo = new dbPDO;
-        
+
         $account = $_SESSION['account'];
         $grammer = "SELECT `total` FROM  `member` WHERE `account` = :account";
         $paramArray = array(':account' => $account);
         $result = $pdo->selectOnce($grammer, $paramArray);
-        
+
         // var_dump($result);
         return $result;
     }

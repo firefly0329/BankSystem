@@ -1,15 +1,14 @@
 <?php
 class App {
-    public function __construct() 
+    public function __construct()
     {
         $url = $this->parseUrl();
-        
+
         if(is_null($url)){
             header("location:/BankSystem/Detail_Controller/detail");
         }
-        
+
         $controllerName = $url[0];
-        
         require_once "controllers/$controllerName.php";
         $controller = new $controllerName;
         $methodName = $url[1];
@@ -20,7 +19,7 @@ class App {
         call_user_func_array(Array($controller, $methodName), $params);
     }
 
-    public function parseUrl() 
+    public function parseUrl()
     {
         if (isset($_GET["url"])) {
             $url = rtrim($_GET["url"], "/");//把最右邊的/刪掉
