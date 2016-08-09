@@ -15,7 +15,7 @@
         <div id="wrapper">
             <h1 class="ta-c pd-t-1">收支查詢</h1>
             <div class="pd-t-3">
-                <form action="/BankSystem/Detail_Controller/memberLogin" method="post" class="">
+                <form action="/BankSystem/DetailController/memberLogin" method="post" class="">
                     <div class="w-100">
                         <label for="">會員編號</label>
                         <input type="text" name="account" pattern="[0-9]{3,20}" value="<?php echo $_SESSION['account']; ?>"/>
@@ -42,7 +42,7 @@
             </div>
 
             <div class="pd-t-3">
-                <form action="/BankSystem/Detail_Controller/changeMoney" method="post" class="">
+                <form action="/BankSystem/DetailController/changeMoney" method="post" class="">
                     <div class="w-100">
                         <label for="">收支</label>
                         <select name="change" id="">

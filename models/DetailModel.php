@@ -1,13 +1,11 @@
 <?php
-session_start();
 
 class DetailModel
 {
-    public function getDetail()
+    public function getDetail($account)
     {
         $pdo = new dbPDO;
 
-        $account = $_SESSION['account'];
         $grammer = "SELECT * FROM  `detail` WHERE `account` = :account";
         $paramArray = array(':account' => $account);
         $result = $pdo->selectAll($grammer, $paramArray);
@@ -15,11 +13,10 @@ class DetailModel
         return $result;
     }
 
-    public function setDetail($change, $money)
+    public function setDetail($change, $money, $account)
     {
         $pdo = new dbPDO;
 
-        $account = $_SESSION['account'];
         $grammer = "INSERT INTO `detail`(`change`, `money`, `account`) VALUES (:change, :money, :account)";
         $paramArray = array(
             ':change' => $change,

@@ -2,21 +2,10 @@
 
 class MemberModel
 {
-    public function setSESSION($account)
-    {
-        $_SESSION['account'] = $account;
-    }
-
-    public function unsetSESSION($account)
-    {
-        unset($_SESSION['account']);
-    }
-
-    public function getTotal()
-    {
+    public function getTotal($account)
+   {
         $pdo = new dbPDO;
 
-        $account = $_SESSION['account'];
         $grammer = "SELECT `total` FROM  `member` WHERE `account` = :account";
         $paramArray = array(':account' => $account);
         $result = $pdo->selectOnce($grammer, $paramArray);
@@ -24,13 +13,12 @@ class MemberModel
         return $result;
     }
 
-    public function setTotal($change, $money)
+    public function setTotal($change, $money, $account)
     {
         $pdo = new dbPDO;
         try{
             $pdoLink = $pdo->linkConnection();
             $pdoLink->beginTransaction();
-            $account = $_SESSION['account'];
             $grammer = "SELECT * FROM  `member` WHERE `account` = :account FOR UPDATE";
             $paramArray = array(':account' => $account);
             $member = $pdo->selectOnce($grammer, $paramArray);
