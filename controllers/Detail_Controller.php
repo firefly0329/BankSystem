@@ -29,9 +29,11 @@ class Detail_Controller extends Controller
         if ($msg == "修改成功") {
             // echo $msg;
             $detailModel->setDetail($_POST['change'], $_POST['money']);
-            $this->detail($msg);
+            
             // header("location:/BankSystem/Detail_Controller/detail/");
         }
+        
+        $this->detail($msg);
         
     }
     

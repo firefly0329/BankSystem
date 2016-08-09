@@ -7,6 +7,7 @@ class Member_Model{
     {
         $_SESSION['account'] = $account;
     }
+    
     public function unsetSESSION($account)
     {
         unset($_SESSION['account']);
@@ -35,7 +36,7 @@ class Member_Model{
             $grammer = "SELECT * FROM  `member` WHERE `account` = :account FOR UPDATE";
             $paramArray = array(':account' => $account);
             $member = $pdo->selectOnce($grammer,$paramArray);
-            
+            // sleep(5);
             if ($change == "支出" && $money > $member['total']) {
                 throw new Exception("您的餘額不足");
             } else {

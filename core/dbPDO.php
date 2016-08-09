@@ -9,6 +9,7 @@ class dbPDO{
         self::$connection = $db;
         $db = null;
     }
+    
     public function __destruct()
     {
         self::$connection = null;
@@ -16,12 +17,15 @@ class dbPDO{
     // function lastInsertId(){
     //     return self::$connection->lastInsertId();
     // }
-    // function linkConnection(){
-    //     return self::$connection;
-    // }
+    
+    function linkConnection(){
+        return self::$connection;
+    }
+    
     // function closeConnection(){
     //     self::$connection = null;
     // }
+    
     public function selectAll($grammer,$paramArray)
     {
         $pdoLink = self::$connection;
