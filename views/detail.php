@@ -32,7 +32,7 @@
                         <td><?php echo $row['money']; ?></td>
                     </tr>
                     <?php } ?>
-                    
+
                 </table>
                 <h3 class="ta-c pd-t-1">餘額:<?php echo $data[1]['total']; ?></h3>
             </div>
@@ -54,7 +54,7 @@
                         <!--<input type="hidden" id="Aid" name="Aid" value="">-->
                         <input type="submit" value="新增" name="changeBTN"/>
                     </div>
-                    
+
                 </form>
             </div>
             <h3 class="pd-t-3 pd-b-3 ta-c" style="color: red;"><?php echo $data[2]; ?></h3>

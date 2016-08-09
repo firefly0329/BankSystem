@@ -47,13 +47,14 @@ class DatabasePDO
     public function change($grammer, $paramArray)
     {
         $pdoLink = self::$connection;
-        
+
         $prepare = $pdoLink->prepare($grammer);
         $result = $prepare->execute($paramArray);
 
         return $result;
     }
 }
+
 /*使用此class的範例
 
 function getOnceActivity($Aid){
