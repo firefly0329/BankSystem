@@ -22,17 +22,20 @@ class MemberModel
             $grammer = "SELECT * FROM  `member` WHERE `account` = :account FOR UPDATE";
             $paramArray = [':account' => $account];
             $member = $pdo->selectOnce($grammer, $paramArray);
+
             if ($change == "支出" && $money > $member['total']) {
                 throw new Exception("您的餘額不足");
             } else {
-                $change == "收入" ? $total = $member['total'] + $money : $total = $member['total'] - $money;
-                $grammer = "UPDATE `member` SET `total` = :total WHERE `account` = :account";
+                if ($change == "支出") {
+                  $money = -($money);
+                }
+                $grammer = "UPDATE `member` SET `total` = `total` + :money WHERE `account` = :account";
                 $paramArray = [
-                    ':total' => $total,
+                    ':money' => $money,
                     ':account' => $account
                 ];
                 $result = $pdo->change($grammer, $paramArray);
-                if ($result > 0) {
+                if ($result == 1) {
                     $msg = "修改成功";
                 } else {
                     throw new Exception("修改失敗");
