@@ -15,4 +15,3 @@ class Controller
         require_once "../BankSystem/views/$view.php";
     }
 }
-

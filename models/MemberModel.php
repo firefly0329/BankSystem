@@ -44,6 +44,3 @@ class MemberModel
         return $msg;
     }
 }
-
-
-

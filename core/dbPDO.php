@@ -54,9 +54,6 @@ class dbPDO
         return $result;
     }
 }
-
-
-
 /*使用此class的範例
 
 function getOnceActivity($Aid){
@@ -70,9 +67,3 @@ function getOnceActivity($Aid){
     }
 
 */
-
-
-
-
-
-

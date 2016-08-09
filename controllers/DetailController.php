@@ -30,5 +30,3 @@ class DetailController extends Controller
         $this->detail($msg);
     }
 }
-
-?>
