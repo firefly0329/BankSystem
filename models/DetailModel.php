@@ -7,7 +7,7 @@ class DetailModel
         $pdo = new DatabasePDO;
 
         $grammer = "SELECT * FROM  `detail` WHERE `account` = :account";
-        $paramArray = array(':account' => $account);
+        $paramArray = [':account' => $account];
         $result = $pdo->selectAll($grammer, $paramArray);
 
         return $result;
@@ -18,11 +18,11 @@ class DetailModel
         $pdo = new DatabasePDO;
 
         $grammer = "INSERT INTO `detail`(`change`, `money`, `account`) VALUES (:change, :money, :account)";
-        $paramArray = array(
+        $paramArray = [
             ':change' => $change,
             ':money' => $money,
             ':account' => $account
-        );
+        ];
         $result = $pdo->change($grammer, $paramArray);
 
         return $result;

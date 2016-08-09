@@ -8,7 +8,7 @@ class DetailController extends Controller
         $detailModel = $this->model("DetailModel");
         $detail = $detailModel->getDetail($_SESSION['account']);
         $total = $memberModel->getTotal($_SESSION['account']);
-        $this->view("detail", array($detail, $total, $msg));
+        $this->view("detail", [$detail, $total, $msg]);
     }
 
     public function memberLogin()
