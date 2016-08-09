@@ -1,9 +1,6 @@
 <?php 
-session_start();
-header("Content-Type:text/html; charset=utf-8");
 class Detail_Controller extends Controller
 {
-    
     public function detail($msg = "") 
     {
         $memberModel = $this->model("Member_Model");
@@ -13,12 +10,14 @@ class Detail_Controller extends Controller
         // var_dump($result);
         $this->view("detail", array($detail, $total, $msg));
     }
+
     public function memberLogin()
     {
         $memberModel = $this->model("Member_Model");
         $memberModel->setSESSION($_POST['account']);
         header("location:/BankSystem/Detail_Controller/detail");
     }
+
     public function changeMoney()
     {
         $memberModel = $this->model("Member_Model");
@@ -32,11 +31,8 @@ class Detail_Controller extends Controller
             
             // header("location:/BankSystem/Detail_Controller/detail/");
         }
-        
         $this->detail($msg);
-        
     }
-    
 }
 
 ?>

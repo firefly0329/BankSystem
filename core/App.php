@@ -1,7 +1,5 @@
 <?php
-
 class App {
-    
     public function __construct() 
     {
         $url = $this->parseUrl();
@@ -21,7 +19,7 @@ class App {
         //call_user_func_array(Array(class名稱,function名稱), Array(參數1,參數2));
         call_user_func_array(Array($controller, $methodName), $params);
     }
-    
+
     public function parseUrl() 
     {
         if (isset($_GET["url"])) {

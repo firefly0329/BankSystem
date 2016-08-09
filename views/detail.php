@@ -1,5 +1,5 @@
 <?php
-header("Content-Type:text/html; charset=utf-8");
+
 ?>
 
 <html>
@@ -32,9 +32,7 @@ header("Content-Type:text/html; charset=utf-8");
                     </tr>
                     <?php foreach($data[0] as $row){ ?>
                     <tr>
-                        
                         <td><?php echo $row['change']; ?></td>
-                        
                         <td><?php echo $row['money']; ?></td>
                     </tr>
                     <?php } ?>

@@ -1,7 +1,9 @@
 <?php 
 
-class dbPDO{
+class dbPDO
+{
     private static $connection = null;
+
     public function __construct()
     {
         $db = new PDO("mysql:host=localhost;dbname=BankSystem;port=3306", "firefly0329", "");
@@ -9,7 +11,7 @@ class dbPDO{
         self::$connection = $db;
         $db = null;
     }
-    
+
     public function __destruct()
     {
         self::$connection = null;
@@ -17,7 +19,7 @@ class dbPDO{
     // function lastInsertId(){
     //     return self::$connection->lastInsertId();
     // }
-    
+
     function linkConnection(){
         return self::$connection;
     }
@@ -25,8 +27,8 @@ class dbPDO{
     // function closeConnection(){
     //     self::$connection = null;
     // }
-    
-    public function selectAll($grammer,$paramArray)
+
+    public function selectAll($grammer, $paramArray)
     {
         $pdoLink = self::$connection;
         
@@ -36,8 +38,8 @@ class dbPDO{
 
         return $result;
     }
-    
-    public function selectOnce($grammer,$paramArray)
+
+    public function selectOnce($grammer, $paramArray)
     {
         $pdoLink = self::$connection;
         
@@ -47,8 +49,8 @@ class dbPDO{
 
         return $result;
     }
-    
-    public function change($grammer,$paramArray)
+
+    public function change($grammer, $paramArray)
     {
         $pdoLink = self::$connection;
         

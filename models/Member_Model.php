@@ -1,18 +1,18 @@
 <?php 
 session_start();
-header("Content-Type:text/html; charset=utf-8");
-class Member_Model{
-    
+
+class Member_Model
+{
     public function setSESSION($account)
     {
         $_SESSION['account'] = $account;
     }
-    
+
     public function unsetSESSION($account)
     {
         unset($_SESSION['account']);
     }
-    
+
     public function getTotal()
     {
         $pdo = new dbPDO;
@@ -20,12 +20,12 @@ class Member_Model{
         $account = $_SESSION['account'];
         $grammer = "SELECT `total` FROM  `member` WHERE `account` = :account";
         $paramArray = array(':account' => $account);
-        $result = $pdo->selectOnce($grammer,$paramArray);
+        $result = $pdo->selectOnce($grammer, $paramArray);
         
         // var_dump($result);
         return $result;
     }
-    
+
     public function setTotal($change, $money)
     {
         $pdo = new dbPDO;
@@ -35,7 +35,7 @@ class Member_Model{
             $account = $_SESSION['account'];
             $grammer = "SELECT * FROM  `member` WHERE `account` = :account FOR UPDATE";
             $paramArray = array(':account' => $account);
-            $member = $pdo->selectOnce($grammer,$paramArray);
+            $member = $pdo->selectOnce($grammer, $paramArray);
             // sleep(5);
             if ($change == "支出" && $money > $member['total']) {
                 throw new Exception("您的餘額不足");
