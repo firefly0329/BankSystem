@@ -32,4 +32,3 @@ class Detail_Model
 
 
 
-?>
