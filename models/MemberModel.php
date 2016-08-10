@@ -18,6 +18,7 @@ class MemberModel
         $grammer = "SELECT * FROM  `member` WHERE `account` = :account FOR UPDATE";
         $paramArray = [':account' => $account];
         $member = $pdo->selectOnce($grammer, $paramArray);
+
         return $member;
     }
     public function setTotal($change, $money, $account, $pdo)
@@ -31,6 +32,7 @@ class MemberModel
             ':account' => $account
         ];
         $result = $pdo->change($grammer, $paramArray);
+
         return $result;
     }
 }

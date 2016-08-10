@@ -1,6 +1,7 @@
 <?php
 
-class App {
+class App
+{
     public function __construct()
     {
         $url = $this->parseUrl();

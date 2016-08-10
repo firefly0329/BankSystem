@@ -17,7 +17,7 @@ class DatabasePDO
         self::$connection = null;
     }
 
-    function linkConnection()
+    public function linkConnection()
     {
         return self::$connection;
     }

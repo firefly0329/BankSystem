@@ -25,22 +25,24 @@ class DetailController extends Controller
 
         if ($_POST['money'] > 0) {
             $pdo = new DatabasePDO;
+            $pdoLink = $pdo->linkConnection();
             try{
-                $pdoLink = $pdo->linkConnection();
                 $pdoLink->beginTransaction();
-                $member = $memberModel->getTotalUpdate($_SESSION['account'], $pdo);//取得餘額並鎖資料
-                sleep(5);
+
+                //取得餘額並鎖資料(FOR UPDATE)
+                $member = $memberModel->getTotalUpdate($_SESSION['account'], $pdo);
+
                 if ($_POST['change'] == "支出" && $_POST['money'] > $member['total']) {
                     throw new Exception("您的餘額不足");
                 } else {
-                    //更改餘額
                     $result = $memberModel->setTotal($_POST['change'], $_POST['money'], $_SESSION['account'], $pdo);
-                    //增加明細
                     $result2 = $detailModel->setDetail($_POST['change'], $_POST['money'], $_SESSION['account']);
                 }
-
-                // echo $result;
-                // echo $result2;
+                if ($result == true && $result2 == true) {
+                    $msg = "修改成功";
+                } else {
+                    throw new Exception("修改失敗");
+                }
 
                 $pdoLink->commit();
             } catch(Exception $err) {
