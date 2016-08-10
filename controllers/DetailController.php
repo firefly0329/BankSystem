@@ -24,13 +24,31 @@ class DetailController extends Controller
         $detailModel = $this->model("DetailModel");
 
         if ($_POST['money'] > 0) {
-            $msg = $memberModel->setTotal($_POST['change'], $_POST['money'], $_SESSION['account']);
+            $pdo = new DatabasePDO;
+            try{
+                $pdoLink = $pdo->linkConnection();
+                $pdoLink->beginTransaction();
+                $member = $memberModel->getTotalUpdate($_SESSION['account'], $pdo);//取得餘額並鎖資料
+                sleep(5);
+                if ($_POST['change'] == "支出" && $_POST['money'] > $member['total']) {
+                    throw new Exception("您的餘額不足");
+                } else {
+                    //更改餘額
+                    $result = $memberModel->setTotal($_POST['change'], $_POST['money'], $_SESSION['account'], $pdo);
+                    //增加明細
+                    $result2 = $detailModel->setDetail($_POST['change'], $_POST['money'], $_SESSION['account']);
+                }
+
+                // echo $result;
+                // echo $result2;
+
+                $pdoLink->commit();
+            } catch(Exception $err) {
+                $pdoLink->rollback();
+                $msg = $err->getMessage();
+            }
         } else {
             $msg = "輸入金額必須大於0";
-        }
-
-        if ($msg == "修改成功") {
-            $detailModel->setDetail($_POST['change'], $_POST['money'], $_SESSION['account']);
         }
         $this->detail($msg);
     }

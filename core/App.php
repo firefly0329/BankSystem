@@ -6,7 +6,7 @@ class App {
         $url = $this->parseUrl();
 
         if(is_null($url)){
-            header("location:/BankSystem/Detail_Controller/detail");
+            header("location:/BankSystem/DetailController/detail");
         }
 
         $controllerName = $url[0];
