@@ -10,13 +10,11 @@ class DatabasePDO
         $db->exec("SET CHARACTER SET utf8");
         self::$connection = $db;
         unset($db);
-        echo "<script>console.log('資料庫連線1')</script>";
     }
 
     public function __destruct()
     {
         self::$connection = null;
-        echo "<script>console.log('資料庫斷線1')</script>";
     }
 
     public function linkConnection()
