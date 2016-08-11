@@ -9,12 +9,14 @@ class DatabasePDO
         $db = new PDO("mysql:host=localhost;dbname=BankSystem;port=3306", "firefly0329", "");
         $db->exec("SET CHARACTER SET utf8");
         self::$connection = $db;
-        $db = null;
+        unset($db);
+        echo "<script>console.log('資料庫連線1')</script>";
     }
 
     public function __destruct()
     {
         self::$connection = null;
+        echo "<script>console.log('資料庫斷線1')</script>";
     }
 
     public function linkConnection()

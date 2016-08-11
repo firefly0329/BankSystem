@@ -15,7 +15,7 @@ class MemberModel
 
     public function getTotalUpdate($account, $pdo)
     {
-        $grammer = "SELECT * FROM  `member` WHERE `account` = :account FOR UPDATE";
+        $grammer = "SELECT * FROM  `member` WHERE `account` = :account LOCK IN SHARE MODE";
         $paramArray = [':account' => $account];
         $member = $pdo->selectOnce($grammer, $paramArray);
 

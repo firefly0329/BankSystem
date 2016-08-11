@@ -13,10 +13,8 @@ class DetailModel
         return $result;
     }
 
-    public function setDetail($change, $money, $account)
+    public function setDetail($change, $money, $account, $pdo)
     {
-        $pdo = new DatabasePDO;
-
         $grammer = "INSERT INTO `detail`(`change`, `money`, `account`) VALUES (:change, :money, :account)";
         $paramArray = [
             ':change' => $change,
