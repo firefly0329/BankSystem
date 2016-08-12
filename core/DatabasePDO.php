@@ -54,17 +54,3 @@ class DatabasePDO
         return $result;
     }
 }
-
-/*使用此class的範例
-
-function getOnceActivity($Aid){
-        $pdo = new dbPDO;
-
-        $grammer = "SELECT * FROM  `activity` WHERE `Aid` = :Aid";
-        $paramArray = array(':Aid' => $Aid);
-        $result = $pdo->selectOnce($grammer, $paramArray);
-
-        return $result;
-    }
-
-*/

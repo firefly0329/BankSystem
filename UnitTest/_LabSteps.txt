@@ -1,0 +1,404 @@
+﻿# Lab: 於 Cloud9 IDE 進行 PHP 程式的單元測試
+
+
+
+
+1.  安裝與試用 PHPUnit
+
+
+1.0 滑鼠右鍵點按你的 Workspace | New Folder，
+    新資料夾名稱: Lab_UnitTest
+
+
+1.1 啟動 Cloud9 IDE
+    滑鼠右鍵點按 Lab_UnitTest | 選擇 Open Terminal Here
+
+
+1.2 在終端機視窗依序輸入下列指令，建立本練習所需的目錄結構:
+mkdir myProject
+mkdir myProject/Test
+
+    <Note>
+        myProject 將放置待測程式
+        myProject/Test 則放置測試程式
+
+
+1.3 在終端機視窗輸入下列指令，安裝 composer 套件管理程式:
+curl -s https://getcomposer.org/installer | php
+
+    <Note> Lab_UnitTest 資料夾會多出一個 composer.phar 檔案。
+
+
+1.4 在 Lab_UnitTest 資料夾建立新檔案: composer.json，內容如下:
+{
+    "require": {
+    },
+    "require-dev": {
+        "phpunit/phpunit": "4.7.7"
+    },
+    "autoload": {
+        "psr-0": {
+            "myProject": ""
+        }
+    }
+}
+
+
+1.5 在終端機視窗依序輸入下列指令，
+    由 composer 根據設定檔安裝 PHPUnit:
+./composer.phar update --dev
+
+    <Note> Lab_UnitTest 會多出一個 vendor 資料夾
+
+
+1.6 在 Lab_UnitTest 建立新檔案: phpunit.xml，內容如下:
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit colors="true">
+    <testsuites>
+        <testsuite name="Application Test Suite">
+            <directory>./myProject/Test/</directory>
+        </testsuite>
+    </testsuites>
+</phpunit>
+
+    <Note>
+    目前 Lab_UnitTest 的目錄結構如下:
+    myProject/
+        Test/
+    vendor/
+        .../
+    composer.json
+    composer.phar
+    phpunit.xml
+
+
+1.7 在 myProject/Test 資料夾建立 PHP 程式，
+    檔案名稱: SetupTest.php, 內容如下:
+<?php
+
+namespace myProject\Test;
+
+class SetupTest extends \PHPUnit_Framework_TestCase
+{
+    public function testAssertTrue()
+    {
+        $foo = true;
+        $this->assertTrue($foo);
+    }
+}
+
+?>
+
+
+1.8 在終端機視窗輸入下列指令，測試看看 PHPUnit 是否安裝妥當:
+vendor/bin/phpunit
+
+    <Note> 一切正常的話, 畫面訊息如下，OK那行應該是綠底文字:
+    PHPUnit 4.7.7 by Sebastian Bergmann and contributors.
+
+    .
+
+    Time: 381 ms, Memory: 4.50MB
+
+    OK (1 test, 1 assertion)
+
+
+1.Q 請回答下列問題
+
+    (1) 要進行單元測試，應該輸入什麼指令?   vendor/bin/phpunit
+    (2) PHPUnit 怎麼知道要執行哪些測試程式?
+    1.vendor/bin/phpunit + 終端積輸入參數指定代測程式  2.設定黨phpunit.xml
+    (3) 測試程式的檔名、類別名稱、方法名稱有命名慣例嗎?
+    檔名:xxxTest.php    類別:與檔名相同   方法:testXXX()
+
+
+
+
+2.  如何執行單元測試
+
+
+2.1 重新命名 phpunit.xml
+    新檔名: Xphpunit.xml
+
+
+2.2 在終端機視窗輸入「vendor/bin/phpunit」
+    <Note> 結果畫面出現 PHPUnit 的操作參數說明。
+
+
+2.3 在終端機視窗輸入下列指令:
+vendor/bin/phpunit ./myProject/Test/SetupTest.php
+
+    <Note> 畫面出現 PHPUnit 測試報告
+
+
+2.4 重新命名 Xphpunit.xml
+    改回原檔名: phpunit.xml
+
+
+2.5 檢視 phpunit.xml 的內容，尤其是下列這行:
+    <directory>./myProject/Test/</directory>
+
+
+2.6 在終端機視窗輸入「vendor/bin/phpunit」
+
+    <Note> 畫面出現 PHPUnit 測試報告
+
+    <Note> 你認為哪一種方式比較好? 參數或者是設定檔?
+
+
+2.7 編輯 myProject/Test/SetupTest.txt, 將
+    testAssertTrue() 改成 tryAssertTrue
+
+
+2.8 在終端機視窗輸入「vendor/bin/phpunit」
+
+    <Note> 畫面訊息顯示 PHPUnit 找不到測試方法:
+    1) Warning
+    No tests found in class "myProject\Test\SetupTest".
+
+
+2.9 編輯 myProject/Test/SetupTest.txt, 將
+    tryAssertTrue() 改回 testAssertTrue()
+
+
+2.Q 請回答下列問題
+
+    (1) 要進行單元測試，應該輸入什麼指令?
+    (2) phpunit 怎麼知道要執行哪些測試程式?
+    (3) 測試程式的檔名、類別名稱、方法名稱有命名慣例嗎?
+
+
+
+
+3.  寫作單元測試程式
+
+
+3.1 在 myProject 資料夾, 建立新的 PHP 程式，
+    檔名: Tool.php, 內容如下：
+
+<?php
+
+namespace myProject;
+
+class Tool {
+
+    function repeatString($iCount, $sWhat = "*") {
+        $result = "";
+    	if ($iCount > 0) {
+    		if ($iCount <= 20) {
+    			for ($i = 1; $i <= $iCount; $i++) {
+    				$result .= $sWhat;
+    			}
+    		}
+    		else {
+    			$result = "iCount <= 20 please.";
+    		}
+    	}
+    	else {
+    		$result = "iCount > 0 please.";
+    	}
+    	return $result;
+    } // end of repeatString
+
+}  // end of class Tool
+
+?>
+
+
+3.2 在 myProject/Test 資料夾, 建立新的 PHP 程式，
+    檔名: ToolTest.php, 內容如下：
+
+<?php
+
+namespace myProject\Test;
+
+use myProject\Tool;
+
+class ToolTest extends \PHPUnit_Framework_TestCase {
+
+    public function testRepeatString() {
+        $paramCount = 5;
+        $paramWhat = "*";
+        $expectedResult = "*****";
+
+        $tool = new Tool();
+        $result = $tool->repeatString($paramCount, $paramWhat);
+
+        $this->assertEquals($expectedResult, $result);
+    }
+
+}
+
+?>
+
+
+3.3 在終端機視窗輸入「vendor/bin/phpunit」
+
+    <Note> 訊息最後一行是綠色的:
+    OK (2 tests, 2 assertions)
+
+
+3.4 修改 $expectedResult = "*****"; 故意少一個星號，
+    重新在終端機視窗輸入「vendor/bin/phpunit」
+
+    <Note> 訊息最後兩行是紅色的:
+    FAILURES!
+    Tests: 2, Assertions: 2, Failures: 1.
+
+
+3.5 修改 ToolTest.php, 新版程式如下:
+
+<?php
+
+namespace myProject\Test;
+
+use myProject\Tool;
+
+class ToolTest extends \PHPUnit_Framework_TestCase {
+
+    public function testRepeatString() {
+        $paramCount = 5;
+        $paramWhat = "*";
+        $expectedResult = "*****";
+
+        $tool = new Tool();
+        $result = $tool->repeatString($paramCount, $paramWhat);
+
+        $this->assertEquals($expectedResult, $result);
+    }
+
+
+    public function testRepeatStringWhenCountTooSmall() {
+        $paramCount = -1;
+        $paramWhat = "*";
+        $expectedResult = "iCount > 0 please.";
+
+        $tool = new Tool();
+        $result = $tool->repeatString($paramCount, $paramWhat);
+
+        $this->assertEquals($expectedResult, $result);
+    }
+
+}
+
+
+?>
+
+
+    <Note> 改回五個星號，此外，
+    也測一下當 count 參數太小時，程式的反應是否符合預期
+
+
+3.6 在終端機視窗輸入「vendor/bin/phpunit」
+
+    <Note> 訊息最後一行是綠色的:
+    OK (3 tests, 3 assertions)
+
+
+3.Q 請回答下列問題
+
+    (1) 測試類別繼承自哪一個基礎類別?
+    (2) 測試程式的方法如何命名?
+    (3) 什麼是 assertion?
+    (4) 除了 assertEquals, 還有哪些 assert 方法?
+    (5) 兩段測試程式除了參數值不同，其他程式都重複，
+        該怎麼寫會比較好呢?
+
+
+
+
+4.  使用 @dataProvider 測試程式
+
+
+4.1 在 ToolTest 類別加入新函式:
+
+    public function providerTestRepeatString() {
+        return array(
+            array(5, '*', "*****"),
+            array(-1, '*', "iCount > 0 please.")
+        );
+    }
+
+    <Note> 請閱讀 providerTestRepeatString()
+
+
+4.2 改寫 ToolTest 類別的 testRepeatString():
+
+    /**
+    * @param int $paramCount
+    * @param string $paramWhat
+    * @param string $expectedResult
+    *
+    * @dataProvider providerTestRepeatString
+    */
+    public function testRepeatString($paramCount, $paramWhat, $expectedResult) {
+        $tool = new Tool();
+        $result = $tool->repeatString($paramCount, $paramWhat);
+        $this->assertEquals($expectedResult, $result);
+    }
+
+    <Note> 請檢視 testRepeatString() 的註解
+
+    <Note> testRepeatStringWhenCountTooSmall() 留著或去除，都可以
+
+
+4.3 在終端機視窗輸入「vendor/bin/phpunit」測試程式。
+
+
+4.Q 請試著回答下列問題:
+
+    (1) @dataProvider 指定了哪一支函式提供資料?
+    (2) 提供資料的函式提供了什麼?
+    (3) @param 之後的內容只是註解或者有實質作用呢?
+
+
+
+5.  程式有經過完整測試嗎? coverage 分析
+
+
+5.1 在終端視窗輸入下列指令:
+./vendor/bin/phpunit --coverage-html coverage
+
+    <Note> Lab_UnitTest 多出一個子資料夾: coverage
+
+
+5.2 在瀏覽器檢視 coverage 資料夾的 index.html
+    <Hint>
+    工具列 Run Project,
+    然後點按螢幕下方 console 視窗的網址
+
+
+5.3 點按 Tool.php 超連結，檢視測試報告。
+
+    <Note> coverage 分析的結果顯示:
+    依我們輸入的測試資料，大約涵蓋 90% 的程式邏輯
+
+    <Note>
+    以湖水綠上色的程式是 Executed 已測過的程式。
+
+    <Note>
+    紅色的程式是尚未測過的程式，我們的測試資料漏測
+    $iCount 參數過大的情況。
+
+
+5.4 編輯 ToolTest.php，改寫 providerTestRepeatString()
+    加上 $iCount 參數過大的測試資料，如下:
+
+    public function providerTestRepeatString() {
+        return array(
+            array(5, '*', "*****"),
+            array(-1, '*', "iCount > 0 please."),
+            array(21, '*', "iCount <= 20 please.")
+        );
+    }
+
+
+5.5 再試一次。在終端視窗輸入下列指令:
+./vendor/bin/phpunit --coverage-html coverage
+
+
+5.6 在瀏覽器檢視 coverage 資料夾的 index.html
+    點按 Tool.php 超連結，檢視測試報告。
+    <Note> coverage 分析的結果顯示:
+    依我們輸入的測試資料，已涵蓋 100% 的程式邏輯
+

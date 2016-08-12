@@ -49,7 +49,7 @@ class DetailController extends Controller
                 } else {
                     throw new Exception("修改失敗");
                 }
-
+                sleep(5);
                 $pdoLink->commit();
             } catch(Exception $err) {
                 $pdoLink->rollback();
